@@ -14,6 +14,7 @@ from joblib import dump, load
 import matplotlib
 import matplotlib.pyplot as plt
 from text_preprocessing import _load_data
+import json
 
 #matplotlib.use('TkAgg')
 pd.set_option('display.max_colwidth', None)
@@ -80,6 +81,11 @@ def main():
     print('\n')
     print(accuracy)
     print('\n')
+
+    # save the accuracy results to a json file
+    accuracy_dict = {k: v[0] for k, v in pred_scores.items()}
+    with open('output/accuracy_scores.json', 'w') as f:
+        json.dump(accuracy_dict, f, indent=4)
 
     #plot accuracy scores in a bar plot
     accuracy.plot(kind='bar', ylim=(0.85, 1.0), edgecolor='black', figsize=(10, 5))
